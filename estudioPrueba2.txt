@@ -1,0 +1,34 @@
+Crear un menú de inicio de sesión, en el cual se debe mostrar los siguientes campos:
+1. Iniciar sesión
+2. Registrar usuario
+3. Salir
+
+Para esto, usted debe crear 3 variables de usuario y 3 variables de contraseña, ambas con valor inicial vacío
+
+(usuario1= None, usuario2=None, usuario3=None, contrasenal= None, contrasena2=None, contrasena3= None)
+
+Si selecciona la opción 1 y no existen registros de usuarios, el sistema deberá indicar que es
+necesario registrar un usuario antes, y volverá al menú principal, en el caso de que ingrese el usuario
+y contraseña correctamente, entonces el sistema mostrará el siguiente menú:
+
+1. Realizar llamada
+
+2. Enviar correo electrónico
+
+3. Cerrar sesión
+
+Donde:
++ — Opción 1: Solicita un número celular. Este número debe comenzar con 9 y su tamaño es de
+8 dígitos (Ejemplo: 98544756).
+
++ Opción 2: Solicita un correo electrónico, el cual debe tener al menos un carácter de “O”
+(validar usando for y while) y guardarlo en una variable llamada “correo”
+
++ - También solicita el mensaje a enviar y lo guardará en una variable llamada “mensaje”.
++ Opción 3: Corresponde a Cerrar Sesión. Esta vuelve al menú principal.
+A considerar:
++ Elsistema sólo acepta las opciones 1, 2 o 3, considerando ambos menús, en caso contrario,
+
+se debe indicar el error y volver a solicitar la opción.
++ - Recuerde utilizar Try, Exception en caso de ser necesario.
+
