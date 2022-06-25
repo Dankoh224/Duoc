@@ -1,0 +1,155 @@
+-- -------------------------------------------------------PREPRUEBA 3-------------------------------------------------
+
+---- ------------------------------------------------------- BORRAR -------------------------------------------------------
+DROP TABLE MARCA;
+
+ALTER TABLE ARTICULO DROP CONSTRAINT fk_id_marca -- elimina la llave p/f al eliminar la restricción
+
+DELETE FROM ARTICULO WHERE nombre_columna = 'el valor que tiene la casilla de esa columna'; -- elimina una fila
+
+DELETE FROM MARCA; -- elimina todas las filas de una tabla
+
+
+
+
+-- ------------------------MODIFICACIONES  ELIMINAR TABLA, AGREGAR TABLA Y RESTRICCIÓN UNIQUE---------------------------------------------------
+
+ALTER TABLE ARTICULO DROP (id_marca) -- borra una columna
+
+ALTER TABLE id_marca ADD (nombre_columna NUMBER(6) NOT NULL UNIQUE) -- agrega una nueva columna UNICA
+
+ALTER TABLE ARTICULO ADD (id_marca NUMBER (10) NOT NULL ) -- agrega una nueva columna UNICA
+
+
+
+
+-- --------------------------------------------------AGREGAR UN CHECK A UNA TABLA YA --------------------------------------------------------------------------
+
+ALTER TABLE ARTICULO ADD CHECK (stock_actual > stock_minimo); --  Este se usa al tener ya creada la tabla
+
+CONSTRAINT chk_stock_actual CHECK (stock_actual > stock_minimo); -- Este se usa al momento de crear la tabla
+
+
+
+     
+-- --------------------------------------------------MODIFICACIONES A LLAVES PRIMARIAS--------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------------------------------------------------------
+ALTER TABLE FACTURA PRIMARY KEY (id_factura)
+
+
+
+
+
+-- ---------------------------------------------------------- TABLAS ----------------------------------------------------
+
+-- Tabla CLIENTE
+CREATE TABLE CLIENTE (
+  id_cliente NUMBER(5) NOT NULL,  
+  rut NUMBER(9) NOT NULL UNIQUE,
+  primer_nombre VARCHAR2 (15) NOT NULL,
+  apellido_paterno VARCHAR2 (15) NOT NULL,
+  apellido_materno VARCHAR2 (15) NOT NULL,
+  CONSTRAINT pk_CLIENTE PRIMARY KEY (id_cliente)
+);
+
+CREATE SEQUENCE serie_cliente
+START WITH 1
+INCREMENT BY 1;
+
+
+
+-- Tabla PRODUCTO
+CREATE TABLE PRODUCTO (
+  id_producto NUMBER(5) NOT NULL,  
+  nombre_producto VARCHAR (9) NOT NULL,
+  stock_minimo NUMBER(4) NOT NULL,
+  stock_actual NUMBER(4) NOT NULL,
+  
+  id_cliente NUMBER(9) NOT NULL,
+  id_vendedor NUMBER(9) NOT NULL, 
+  
+  CONSTRAINT pk_PRODUCTO PRIMARY KEY (id_producto)
+);
+
+CREATE SEQUENCE serie_producto
+START WITH 1000
+INCREMENT BY 10;
+
+
+-- Tabla VENDEDOR
+CREATE TABLE VENDEDOR (
+  id_vendedor NUMBER(5) NOT NULL,  
+  primer_nombre VARCHAR2 (15) NOT NULL,
+  apellido_paterno VARCHAR2 (15) NOT NULL,
+  apellido_materno VARCHAR2 (15) NOT NULL,
+  CONSTRAINT pk_VENDEDOR PRIMARY KEY (id_vendedor)
+);
+
+
+
+CREATE SEQUENCE serie_vendedor
+START WITH 1
+INCREMENT BY 1;
+
+
+
+-- ---------------------------------------------------------MODIFICACIONES A LLAVES FORÁNEAS----------------------------------------------
+-- TABLA PRODUCTO
+ALTER TABLE PRODUCTO
+     ADD CONSTRAINT fk_id_cliente
+     FOREIGN KEY (id_cliente)
+     REFERENCES CLIENTE (id_cliente);
+     
+ALTER TABLE PRODUCTO
+     ADD CONSTRAINT fk_id_vendedor
+     FOREIGN KEY (id_vendedor)
+     REFERENCES VENDEDOR (id_vendedor);
+
+-- ---------------------------------------------------------INSERT----------------------------------------------
+-- INSERT PRODUCTO
+
+INSERT INTO PRODUCTO (id_producto, nombre_producto,stock_minimo,stock_actual)
+VALUES (serie_producto.nextval,'cocacola', 15 , 25);
+
+INSERT INTO PRODUCTO (id_producto, nombre_producto,stock_minimo,stock_actual)
+VALUES (serie_producto.nextval,'fideos', 20 , 34);
+
+INSERT INTO PRODUCTO (id_producto, nombre_producto,stock_minimo,stock_actual)
+VALUES (serie_producto.nextval,'leche', 12 , 26);
+
+INSERT INTO PRODUCTO (id_producto, nombre_producto,stock_minimo,stock_actual)
+VALUES (serie_producto.nextval,'detergente', 5 , 12);
+
+
+
+-- INSERT CLIENTE
+
+INSERT INTO CLIENTE (id_cliente, rut,primer_nombre,apellido_paterno,apellido_materno)
+VALUES (serie_cliente.nextval,163796791,'danko','valderrama','astete');
+
+INSERT INTO CLIENTE (id_cliente, rut,primer_nombre,apellido_paterno,apellido_materno)
+VALUES (serie_cliente.nextval,163796791,'camila','oyarzun','zañartu');
+
+INSERT INTO CLIENTE (id_cliente, rut,primer_nombre,apellido_paterno,apellido_materno)
+VALUES (serie_cliente.nextval,163796791,'vicente','gohan','valderrama');
+
+INSERT INTO CLIENTE (id_cliente, rut,primer_nombre,apellido_paterno,apellido_materno)
+VALUES (serie_cliente.nextval,163796791,'goku','cisternas','rodriguez');
+
+
+
+
+-- INSERT VENDEDOR
+
+INSERT INTO VENDEDOR (id_vendedor, primer_nombre,apellido_paterno,apellido_materno)
+VALUES (serie_vendedor.nextval,'pedro','fontalba','ximenez');
+
+INSERT INTO VENDEDOR (id_vendedor, primer_nombre,apellido_paterno,apellido_materno)
+VALUES (serie_vendedor.nextval,'pablo','tejeiro','unchalequeiro');
+
+INSERT INTO VENDEDOR (id_vendedor, primer_nombre,apellido_paterno,apellido_materno)
+VALUES (serie_vendedor.nextval,'manuel','ormar','lopez');
+
+INSERT INTO VENDEDOR (id_vendedor, primer_nombre,apellido_paterno,apellido_materno)
+VALUES (serie_vendedor.nextval,'pancho','neymar','sanchez');
+
