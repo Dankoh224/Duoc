@@ -31,4 +31,3 @@ A considerar:
 
 se debe indicar el error y volver a solicitar la opción.
 + - Recuerde utilizar Try, Exception en caso de ser necesario.
-

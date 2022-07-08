@@ -78,4 +78,3 @@ while True:
     except ValueError:
         print("ERROR: Debe ingresar un valor numérico.")
         time.sleep(2)
-
