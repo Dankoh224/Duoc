@@ -30,6 +30,15 @@ departamentos = [
     ["1","","","",""]
 ]
 
+# Suma de ventas:
+
+
+# Cantidad de ventas:
+depto_A = []
+depto_B = []
+depto_C = []
+depto_D = []
+
 # Listas de datos:
 ruts = []
 nombres = []
@@ -56,6 +65,18 @@ def comprar_departamento():
     piso = int(input("Ingrese el PISO donde comprará su departamento: "))
     tipo = str(input("Ingrese el TIPO de departamento que comprará: "))
     tipo = tipo.upper()
+
+    # Conteo departamentos:
+    if tipo == "A":
+        depto_A.append(1)
+    elif tipo == "B":
+        depto_B.append(1)
+    elif tipo == "C":
+        depto_C.append(1)
+    elif tipo == "D":
+        depto_D.append(1)
+
+    # Continuación:
     posicion_tipo = departamentos[1].index(tipo)
     numero_departamento = tipo + str(piso)
     if departamentos[12-piso][posicion_tipo] == "":
@@ -95,30 +116,53 @@ def  listado_compradores():
         del ruts_copia[posicion_rut_menor]
         del nombres_copia[posicion_rut_menor]
         del deptos_copia[posicion_rut_menor]
+    print("| {:<9}{:<9}{:<9} |".format("Rut","Nombre","Depto"))
+    for i in datos_ordenados:
+        print("|", end = " ") 
+        for elemento in i:
+            print("{:<9}".format(elemento), end = "") 
+        print(" |")
+    print()
     return datos_ordenados
 
+# Función opción 4:
+def ventas_totales():
+    s1 = 0
+    s2 = 0
+    s3 = 0
+    s4 = 0
+
+    # Lista de ventas:
+    ventas = [ 
+        ["Tipo Depto","Cantidad","Total"],
+        ["Tipo A 3.800 UF",sum(depto_A),sum(depto_A) * 3800],
+        ["Tipo B 3.000 UF",sum(depto_B),sum(depto_B) * 3000], 
+        ["Tipo C 2.800 UF",sum(depto_C),sum(depto_C) * 2800],   
+        ["Tipo D 3.500 UF",sum(depto_D),sum(depto_D) * 3500],
+        ["Total",sum(depto_A) + sum(depto_B) + sum(depto_C) + sum(depto_D),sum(depto_A) * 3800 + sum(depto_B) * 3000 + sum(depto_C) * 2800 + sum(depto_D) * 3500]
+    ]
+    print()
+    for i in ventas:
+        print("|", end = "") 
+        for elemento in i:
+            print("{:16}".format(elemento), end = " ") 
+        print("|")
+    print()
 
 
 bandera = True
 while bandera:
     opcion = menu()
     if opcion == 1:
-        numero_departamento = comprar_departamento()
+        compra_departamento = comprar_departamento()
     elif opcion == 2:
         muestra_depto = mostrar_departamentos_disponibles()
     elif opcion == 3:
         ver = listado_compradores()
-        print("| {:<9}{:<9}{:<9} |".format("Rut","Nombre","Depto"))
-        for i in ver:
-            print("|", end = " ") 
-            for elemento in i:
-                print("{:<9}".format(elemento), end = "") 
-            print(" |")
-        print()
     elif opcion == 4:
-        print("4")
+        ganancias_totales = ventas_totales()
     elif opcion == 5:
-        print("Ha elegido salir")
+        print("Ha elegido salir. Programa realizado por Danko Valderrama. Fecha: 8 de julio 2022.")
         bandera = False
     else:
         print("Opción equivocada. Vuelva a intentarlo. ")
